@@ -6,7 +6,6 @@ copyright (c) 2021 Max Ziebell, (https://maxziebell.de). MIT-license
 /*
 * Version-History
 * 1.0.0	Initial release under MIT-license
-
 */
 if("HypeSlideGesture" in window === false) window['HypeSlideGesture'] = (function () {
 
