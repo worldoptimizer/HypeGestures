@@ -1,3 +1,4 @@
+
 /*!
 Hype Slide Gesture 1.0.0
 copyright (c) 2021 Max Ziebell, (https://maxziebell.de). MIT-license
@@ -18,11 +19,12 @@ if("HypeSlideGesture" in window === false) window['HypeSlideGesture'] = (functio
 		config = config || {};
 		
 		// prep vars based on config
-		var instance =  config.symbolInstance || hypeDocument; //autodetect?!
+		var instance =  config.forceInstance || config.symbolInstance || hypeDocument.getSymbolInstance(element) || hypeDocument;
 		var timelineName = config.timelineName || 'timelineName'; 
-		var borderMode = config.borderMode || 'bounce'; // default?
+		var borderMode = config.borderMode || 'none';
 		var ms = config.ms || 100;
 		var maxVelocityTick =  (Math.abs(config.maxVelocity) || 12) / 60;
+		var minVelocityTick =  config.minVelocity? Math.abs(config.minVelocity) / 60 : null;
 		var friction = config.friction || 0.95;
 		var borderFriction = config.borderFriction || 0.1;
 		var treshold = config.treshold || 0.01;
@@ -103,6 +105,15 @@ if("HypeSlideGesture" in window === false) window['HypeSlideGesture'] = (functio
 					}
 					
 					instance.dragDiff *= friction;
+					
+					if (minVelocityTick) {
+						if (instance.dragDiff>0) {
+							if (instance.dragDiff<minVelocityTick) instance.dragDiff = minVelocityTick;
+						} else if(instance.dragDiff<0){
+							if (instance.dragDiff>-minVelocityTick) instance.dragDiff = -minVelocityTick;
+						}
+					}
+					
 					if (Math.abs(instance.dragDiff) < treshold ) {
 						instance.pauseTimelineNamed(timelineName)
 						clearInterval(instance.interval);
