@@ -1,4 +1,3 @@
-
 /*!
 Hype Slide Gesture 1.0.0
 copyright (c) 2021 Max Ziebell, (https://maxziebell.de). MIT-license
@@ -27,7 +26,7 @@ if("HypeSlideGesture" in window === false) window['HypeSlideGesture'] = (functio
 		var minVelocityTick =  config.minVelocity? Math.abs(config.minVelocity) / 60 : null;
 		var friction = config.friction || 0.95;
 		var borderFriction = config.borderFriction || 0.1;
-		var treshold = config.treshold || 0.01;
+		var threshold = config.threshold || 0.01;
 		var time = instance.currentTimeInTimelineNamed(timelineName);
 		var duration = instance.durationForTimelineNamed(timelineName);
 		
@@ -114,7 +113,7 @@ if("HypeSlideGesture" in window === false) window['HypeSlideGesture'] = (functio
 						}
 					}
 					
-					if (Math.abs(instance.dragDiff) < treshold ) {
+					if (Math.abs(instance.dragDiff) < threshold ) {
 						instance.pauseTimelineNamed(timelineName)
 						clearInterval(instance.interval);
 
